@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    formats: ["image/webp", "image/avif"],
+  },
+  // Remove the floating ⓝ Next.js dev indicator
+  devIndicators: false,
 };
 
 export default nextConfig;

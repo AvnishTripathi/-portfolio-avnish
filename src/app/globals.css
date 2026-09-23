@@ -1,26 +1,259 @@
 @import "tailwindcss";
 
+/* ── CSS Variables (controlled by ThemeContext) ─────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ─── LIGHT (default) ───────────────────────────────────────── */
+  --bg:            #ffffff;
+  --bg-alt:        #f8fafc;
+  --bg-card:       #ffffff;
+  --bg-card-solid: #ffffff;
+  --bg-modal:      rgba(255,255,255,0.97);
+  --card-shadow:   0 1px 3px rgba(0,0,0,0.07), 0 4px 12px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 8px 32px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06);
+
+  --text-h:    #0f172a;
+  --text-p:    #334155;
+  --text-sub:  #64748b;
+  --text-dim:  #94a3b8;
+  --text-card: #1e293b;
+
+  --accent:       #4f9eff;
+  --accent-2:     #8b5cf6;
+  --accent-rgb:   79,158,255;
+  --accent-2-rgb: 139,92,246;
+
+  --border:       #e2e8f0;
+  --border-hover: rgba(79,158,255,0.4);
+  --scrollbar:    rgba(79,158,255,0.25);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── DARK MODE ──────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --bg:            #050816;
+  --bg-alt:        rgba(79,158,255,0.018);
+  --bg-card:       rgba(8,14,40,0.7);
+  --bg-card-solid: #080e28;
+  --bg-modal:      rgba(2,4,18,0.95);
+  --card-shadow:   none;
+  --card-shadow-hover: 0 4px 40px rgba(79,158,255,0.12);
+
+  --text-h:    #ffffff;
+  --text-p:    #f1f5f9;
+  --text-sub:  #94a3b8;
+  --text-dim:  #64748b;
+  --text-card: #e2e8f0;
+
+  --border:       rgba(79,158,255,0.14);
+  --border-hover: rgba(79,158,255,0.45);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── Reset ──────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar) transparent;
 }
+html::-webkit-scrollbar { width: 5px; }
+html::-webkit-scrollbar-track { background: transparent; }
+html::-webkit-scrollbar-thumb { background: var(--scrollbar); border-radius: 3px; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--text-p);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.25s ease;
 }
+
+::selection {
+  background: rgba(var(--accent-rgb), 0.2);
+  color: var(--text-h);
+}
+
+/* ── Gradient text ──────────────────────────────────────────────────────── */
+.grad {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Container ──────────────────────────────────────────────────────────── */
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+@media (max-width: 640px) { .wrap { padding: 0 18px; } }
+
+/* ── Card ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: rgba(var(--accent-rgb), 0.35);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* ── Pill badge ─────────────────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(var(--accent-rgb), 0.08);
+  border: 1px solid rgba(var(--accent-rgb), 0.22);
+  border-radius: 999px;
+  padding: 5px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* ── Tag ────────────────────────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(var(--accent-rgb), 0.06);
+  border: 1px solid rgba(var(--accent-rgb), 0.16);
+  border-radius: 6px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-sub);
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+.tag:hover {
+  background: rgba(var(--accent-rgb), 0.12);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+.btn-blue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 9px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.25s, transform 0.2s, background 0.2s;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.btn-blue:hover {
+  background: var(--accent);
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-sub);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-ghost:hover {
+  background: rgba(var(--accent-rgb), 0.06);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ── Dot grid (dark mode only) ───────────────────────────────────────────── */
+[data-theme="dark"] .dot-grid {
+  background-image: radial-gradient(rgba(var(--accent-rgb), 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Modal ──────────────────────────────────────────────────────────────── */
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,23,42,0.55);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+[data-theme="dark"] .modal-bg {
+  background: rgba(2,4,18,0.88);
+}
+
+/* ── Focus ──────────────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid rgba(var(--accent-rgb), 0.55);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ── Keyframes & Executive Motion ────────────────────────────────────────── */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-7px); }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.28); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer-sweep {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--text-h) 0%, var(--accent) 50%, var(--text-h) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-sweep 6s linear infinite;
+}
+
