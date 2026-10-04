@@ -33,7 +33,7 @@ type Project = {
 const projects: Project[] = [
   {
     id: "med",
-    name: "AI-Powered Medicine Recommendation System",
+    name: "SmartMed — AI-Powered Medicine Recommendation System",
     category: "Web & Mobile · Healthcare AI",
     short: "An AI-powered healthcare platform that analyzes user-provided symptoms and provides medicine recommendations with relevant medication information.",
     full: "A comprehensive healthcare platform leveraging machine learning to analyze symptoms and return intelligent medicine recommendations. Built with a Flask backend, MySQL database, and a Flutter mobile companion app.",
@@ -54,6 +54,7 @@ const projects: Project[] = [
     contrib: ["System architecture", "Flask backend", "REST APIs", "ML model integration", "Database connectivity", "Frontend development", "Mobile app development", "Testing & validation"],
     github: "https://github.com/AvnishTripathi/medicine-recommendation-website",
     live: "https://medicine-recommendation-website.onrender.com/",
+    image: "/smartmed-logo.jpg",
     accent: "var(--accent)",
   },
   {
