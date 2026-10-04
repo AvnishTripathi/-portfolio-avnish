@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import CollapsibleSection from "./CollapsibleSection";
 
 function GH({ size = 15 }: { size?: number }) {
@@ -13,10 +14,20 @@ function GH({ size = 15 }: { size?: number }) {
 }
 
 type Project = {
-  id: string; name: string; category: string;
-  short: string; full: string; problem: string; solution: string;
-  features: string[]; tech: string[]; contrib: string[];
-  github: string; live: string; accent: string;
+  id: string;
+  name: string;
+  category: string;
+  short: string;
+  full: string;
+  problem: string;
+  solution: string;
+  features: string[];
+  tech: string[];
+  contrib: string[];
+  github: string;
+  live: string;
+  accent: string;
+  image?: string;
 };
 
 const projects: Project[] = [
@@ -39,8 +50,8 @@ const projects: Project[] = [
       "Mobile application support (Flutter)",
       "Backend REST API integration",
     ],
-    tech: ["Python","Flask","Machine Learning","Scikit-learn","Pandas","NumPy","MySQL","HTML","CSS","JavaScript","Flutter"],
-    contrib: ["System architecture","Flask backend","REST APIs","ML model integration","Database connectivity","Frontend development","Mobile app development","Testing & validation"],
+    tech: ["Python", "Flask", "Machine Learning", "Scikit-learn", "Pandas", "NumPy", "MySQL", "HTML", "CSS", "JavaScript", "Flutter"],
+    contrib: ["System architecture", "Flask backend", "REST APIs", "ML model integration", "Database connectivity", "Frontend development", "Mobile app development", "Testing & validation"],
     github: "https://github.com/AvnishTripathi/medicine-recommendation-website",
     live: "https://medicine-recommendation-website.onrender.com/",
     accent: "var(--accent)",
@@ -66,11 +77,36 @@ const projects: Project[] = [
       "Local and cloud storage fallback",
       "Android-ready configuration",
     ],
-    tech: ["JavaScript","Node.js","Express.js","MongoDB","Mongoose","Face-API.js","Chart.js","Google Gemini AI","JWT","bcrypt","Web Speech API"],
-    contrib: ["System architecture","Backend API development","Voice assistant logic","AI integration (Gemini)","Frontend/UI development","JWT authentication","Facial authentication","Storage architecture","Testing & QA"],
+    tech: ["JavaScript", "Node.js", "Express.js", "MongoDB", "Mongoose", "Face-API.js", "Chart.js", "Google Gemini AI", "JWT", "bcrypt", "Web Speech API"],
+    contrib: ["System architecture", "Backend API development", "Voice assistant logic", "AI integration (Gemini)", "Frontend/UI development", "JWT authentication", "Facial authentication", "Storage architecture", "Testing & QA"],
     github: "https://github.com/AvnishTripathi/jarvis-voice-assistant",
     live: "https://jarvis-voice-assistant-epgd.onrender.com/",
     accent: "var(--accent-2)",
+  },
+  {
+    id: "hotel",
+    name: "Royal Grand — Hotel Management System",
+    category: "Full-Stack Web Application · Hospitality Platform",
+    short: "A comprehensive hotel management and booking platform with automated room inventory, guest check-in/out workflows, and billing management.",
+    full: "A full-stack hotel management and reservation web platform designed for luxury hospitality operations. It streamlines room booking, dynamic inventory management, guest check-in/out lifecycle, automated billing, and administrative dashboards.",
+    problem: "Hospitality desks often face room booking conflicts, manual inventory errors, delayed check-in processing, and disconnected billing systems.",
+    solution: "Engineered a full-stack hotel management platform with real-time room availability tracking, automated reservation workflows, transparent billing calculation, and an intuitive modern interface.",
+    features: [
+      "Luxury hotel room showcase & online reservation engine",
+      "Dynamic room category & availability management",
+      "Guest check-in, check-out, and stay duration tracking",
+      "Automated billing, invoice generation, and tax calculations",
+      "Admin dashboard for booking analytics & operations",
+      "Staff room maintenance and housekeeping status updates",
+      "Secure authentication & guest profile management",
+      "Responsive UI with premium luxury aesthetic",
+    ],
+    tech: ["JavaScript", "React.js", "Node.js", "Express.js", "MySQL", "HTML5", "CSS3", "REST APIs"],
+    contrib: ["Full-stack architecture", "Database schema & ER design", "Booking engine logic", "UI/UX design & responsiveness", "Billing & invoice calculation", "REST API integration", "Testing & QA"],
+    github: "https://github.com/AvnishTripathi",
+    live: "https://github.com/AvnishTripathi",
+    image: "/royal-grand-hotel.jpg",
+    accent: "#f59e0b",
   },
 ];
 
@@ -118,7 +154,7 @@ function ProjectCard({ project: p, index, onOpen }: { project: Project; index: n
       <div
         className="card"
         style={{
-          padding: "28px 26px",
+          padding: "26px 24px",
           height: "100%",
           display: "flex",
           flexDirection: "column",
@@ -126,6 +162,36 @@ function ProjectCard({ project: p, index, onOpen }: { project: Project; index: n
           overflow: "hidden",
         }}
       >
+        {/* Project Image Banner if available */}
+        {p.image && (
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              height: 165,
+              borderRadius: 12,
+              overflow: "hidden",
+              marginBottom: 16,
+              border: "1px solid var(--border)",
+            }}
+          >
+            <Image
+              src={p.image}
+              alt={p.name}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 400px"
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 60%)",
+              }}
+            />
+          </div>
+        )}
+
         {/* Category */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
           <span style={{ fontSize: 11, fontWeight: 700, color: p.accent, letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -215,6 +281,29 @@ function ProjectModal({ project: p, onClose }: { project: Project; onClose: () =
         }}
       >
         <div style={{ padding: "30px 28px" }}>
+          {/* Project Image Banner in Modal if available */}
+          {p.image && (
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                height: 220,
+                borderRadius: 14,
+                overflow: "hidden",
+                marginBottom: 22,
+                border: "1px solid var(--border)",
+              }}
+            >
+              <Image
+                src={p.image}
+                alt={p.name}
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="740px"
+              />
+            </div>
+          )}
+
           {/* Header */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, marginBottom: 20 }}>
             <div>

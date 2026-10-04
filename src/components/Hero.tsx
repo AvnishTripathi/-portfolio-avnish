@@ -15,7 +15,7 @@ function GH({ size = 16 }: { size?: number }) {
 const roles = ["AI Engineer", "Full Stack Developer", "Machine Learning Specialist", "Backend Engineer"];
 
 const stats = [
-  { value: "2+", label: "Projects Built" },
+  { value: "3+", label: "Projects Built" },
   { value: "Top 20", label: "UNLEASH LLM Finalist" },
   { value: "7.34", label: "CGPA" },
   { value: "2027", label: "Graduating" },
