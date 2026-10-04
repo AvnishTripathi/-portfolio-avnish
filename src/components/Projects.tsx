@@ -104,7 +104,7 @@ const projects: Project[] = [
     tech: ["JavaScript", "React.js", "Node.js", "Express.js", "MySQL", "HTML5", "CSS3", "REST APIs"],
     contrib: ["Full-stack architecture", "Database schema & ER design", "Booking engine logic", "UI/UX design & responsiveness", "Billing & invoice calculation", "REST API integration", "Testing & QA"],
     github: "https://github.com/AvnishTripathi",
-    live: "https://github.com/AvnishTripathi",
+    live: "https://hotel-management-portal-eenf.onrender.com/",
     image: "/royal-grand-hotel.jpg",
     accent: "#f59e0b",
   },
