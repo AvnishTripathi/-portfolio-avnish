@@ -81,6 +81,7 @@ const projects: Project[] = [
     contrib: ["System architecture", "Backend API development", "Voice assistant logic", "AI integration (Gemini)", "Frontend/UI development", "JWT authentication", "Facial authentication", "Storage architecture", "Testing & QA"],
     github: "https://github.com/AvnishTripathi/jarvis-voice-assistant",
     live: "https://jarvis-voice-assistant-epgd.onrender.com/",
+    image: "/jarvis-dashboard.png",
     accent: "var(--accent-2)",
   },
   {
